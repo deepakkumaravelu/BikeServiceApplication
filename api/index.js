@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from "body-parser";
 import cors from "cors";
-
+import nodemailer from "nodemailer";
 
 import connectDB from './connection/conn.js';
 import User from './models/User.js';
@@ -102,7 +102,30 @@ app.post('/new-booking/:userId', async (req, res) => {
         serviceId,
         userId:req.params.userId
       });
-  
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',  
+        auth: {
+          type: 'OAuth2',
+          user: process.env.MAIL_USERNAME,
+          pass: process.env.MAIL_PASSWORD,
+          clientId: process.env.OAUTH_CLIENTID,
+          clientSecret: process.env.OAUTH_CLIENT_SECRET,
+          refreshToken: process.env.OAUTH_REFRESH_TOKEN
+        }
+      });
+      let mailOptions = {
+        from:process.env.MAIL_USERNAME,
+        to: process.env.MAIL_USERNAME,
+        subject: `New booking placed for your service ${serviceId}`,
+        text: `User:${req.params.userId} placed order at ${new Date(Date.now())}`
+      };
+      transporter.sendMail(mailOptions, function(err, data) {
+        if (err) {
+          console.log("Error " + err);
+        } else {
+          console.log("Email sent successfully");
+        }
+      });
       return res.status(201).json({
         status: "success",
         message: "New booking created",
