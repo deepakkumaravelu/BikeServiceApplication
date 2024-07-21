@@ -177,9 +177,34 @@ app.post('/new-booking/:userId', async (req, res) => {
 
   app.patch('/update-booking/:id',async(req,res)=>{
     try {
-        await Booking.findByIdAndUpdate(req.params.id, {
-          isCompleted:req.body.isCompleted
+        const updatedBooking =await Booking.findByIdAndUpdate(req.params.id, {
+            isCompleted:req.body.isCompleted
         });
+        const user= await User.findById(updatedBooking.userId);
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',  
+            auth: {
+              type: 'OAuth2',
+              user: process.env.MAIL_USERNAME,
+              pass: process.env.MAIL_PASSWORD,
+              clientId: process.env.OAUTH_CLIENTID,
+              clientSecret: process.env.OAUTH_CLIENT_SECRET,
+              refreshToken: process.env.OAUTH_REFRESH_TOKEN
+            }
+          });
+          let mailOptions = {
+            from:process.env.MAIL_USERNAME,
+            to: `${user.email}`,
+            subject: `Bike service update from owner`,
+            text: `User:${user.username} order update ; order ${(req.body.isCompleted)?"completed successfully":"cancelled"} ${new Date(Date.now())}`
+          };
+          transporter.sendMail(mailOptions, function(err, data) {
+            if (err) {
+              console.log("Error " + err);
+            } else {
+              console.log("Email sent successfully");
+            }
+          });
         res.status(200).json({
           status: "success",
           message: "entry updated",
