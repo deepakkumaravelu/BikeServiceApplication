@@ -1,9 +1,12 @@
 import express from 'express';
 import bodyParser from "body-parser";
 import cors from "cors";
+
+
 import connectDB from './connection/conn.js';
 import User from './models/User.js';
 import Service from './models/Service.js';
+import Booking from './models/Booking.js';
 
 const port=process.env.PORT;
 const app=express();
@@ -91,7 +94,81 @@ app.delete('/delete-service/:id',async(req,res)=>{
       }
 })
 
+app.post('/new-booking/:userId', async (req, res) => {
 
+    const {serviceId} = req.body;
+    try {
+      const newBooking = await Booking.create({
+        serviceId,
+        userId:req.params.userId
+      });
+  
+      return res.status(201).json({
+        status: "success",
+        message: "New booking created",
+        bookingDetails: newBooking
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: "failure",
+        message: "Cannot create booking",
+        error: err
+      });
+    }
+  });
+  app.get('/get-bookings/:userId', async (req, res) => {
+    try {
+      const allbookings = await Booking.find({
+        userId:req.params.userId
+      });
+  
+      return res.status(201).json({
+        status: "success",
+        message: "bookings retrieved",
+        bookings: allbookings
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: "failure",
+        message: "Cannot retrive bookings",
+        error: err
+      });
+    }
+  });
+  app.get('/get-all-bookings',async (req, res) => {
+    try {
+      const allusersbookings = await Booking.find().populate('serviceId');
+      return res.status(201).json({
+        status: "success",
+        message: "bookings retrieved",
+        bookings: allusersbookings
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: "failure",
+        message: "Cannot retrive bookings",
+        error: err
+      });
+    }
+  });
+
+  app.patch('/update-booking/:id',async(req,res)=>{
+    try {
+        await Booking.findByIdAndUpdate(req.params.id, {
+          isCompleted:req.body.isCompleted
+        });
+        res.status(200).json({
+          status: "success",
+          message: "entry updated",
+        });
+      } catch (error) {
+        res.status(500).json({
+          status: "failure",
+          message: "couldn't update entry",
+          error: error,
+        });
+      }
+})
 
 app.post('/new-user',async (req,res)=>{
     try{
