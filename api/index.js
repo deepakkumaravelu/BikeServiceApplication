@@ -2,11 +2,13 @@ import express from 'express';
 import bodyParser from "body-parser";
 import cors from "cors";
 import nodemailer from "nodemailer";
+import bcrypt, { hash } from "bcrypt";
 
 import connectDB from './connection/conn.js';
 import User from './models/User.js';
 import Service from './models/Service.js';
 import Booking from './models/Booking.js';
+import { saltRounds } from './utils/constant.js';
 
 const port=process.env.PORT;
 const app=express();
@@ -222,10 +224,19 @@ app.post('/new-user',async (req,res)=>{
     try{
         const user=await User.find({email:req.body.email});
         if(user.length==0){
+          bcrypt.hash(req.body.password,saltRounds,async function(err,hash){
+            if(err){
+              return res.status(500).json({
+                status:"failure",
+                message:"Error in hashing password",
+                error:err
+              })
+            }
+        
             try{
             const newUser = await User.create({
                 email: req.body.email,
-                password: req.body.password, 
+                password: hash, 
                 username: req.body.username,
                 isSeller:req.body.isSeller
               });
@@ -240,6 +251,7 @@ app.post('/new-user',async (req,res)=>{
                     error:err
                 })
             }
+        });
         }else{
             return res.status(403).json({
                 status: "failure",
@@ -262,14 +274,29 @@ app.post('/login', async(req,res)=>{
             status: "failure",
             message: "User does not exist",
           });
-        }else{
-
-          return res.status(200).json({
-            status: "success",
-            message: "User valid",
-            userDetails: user,
-          });
         }
+          bcrypt.compare(req.body.password, user.password, function(err, result) {
+            if (err) {
+              console.log(err);
+              return res.status(500).json({
+                status: "error",
+                message: "Authentication failed",
+                error: err,
+              });
+            }
+      
+            if (!result) {
+              return res.status(401).json({
+                status: "failure",
+                message: "Invalid password",
+              });
+            }
+            return res.status(200).json({
+              status: "success",
+              message: "User valid",
+              userDetails: user,
+            });
+          });
       } catch (error) {
         return res.status(500).json({
           status: "error",
