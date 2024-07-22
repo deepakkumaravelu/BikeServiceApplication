@@ -36,9 +36,6 @@ function authenticateToken(req, res, next) {
   }
 }
 
-// function authenticateToken(req,res,next){
-//   next()
-// }
 
 router.post("/add-service/:userId", authenticateToken, addService);
 

@@ -36,10 +36,6 @@ function authenticateToken(req, res, next) {
   }
 }
 
-// function authenticateToken(req,res,next){
-//   next()
-// }
-
 router.post("/new-booking/:userId", authenticateToken, newBooking);
 
 router.get("/get-bookings/:userId", authenticateToken, getBookings);
