@@ -8,9 +8,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies([]);
+  const [loading, setLoading] = useState(false); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const loginResponse = await fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
         method: "POST",
@@ -34,6 +36,8 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -46,6 +50,8 @@ const Login = () => {
   };
 
   return (
+    <>
+    {!loading?
     <div className="login-container mt-5 mx-auto form-container"> {/* Add custom class */}
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-12">
@@ -60,7 +66,16 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">Log in</button>
         </div>
       </form>
-    </div>
+    </div> :
+      <div className="bdy">
+    <div className="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</div>}
+  </>
   );
 };
 
