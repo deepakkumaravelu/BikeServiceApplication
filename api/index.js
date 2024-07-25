@@ -3,32 +3,24 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import connectDB from './connection/conn.js';
-
 import router from './routes/userRoutes.js';
 import servicerouter from './routes/serviceRoutes.js';
 import bookingrouter from './routes/bookingRoutes.js';
 
-const port=process.env.PORT;
-const app=express();
+const port = process.env.PORT;  
+const app = express();  
 
-app.use(cors());
-app.use(bodyParser.json());
+app.use(cors());  
+app.use(bodyParser.json());  // Parse incoming JSON requests
 
-  
-/*
- * CRUD operations
- * adding a new service -> /add-service (post)
- * view existing ones -> /get-services (get)
- * edit existing entries -> /update-service (patch)
- * deleting entries -> /delete-service (delete)
- */
+// Set up route handling
+app.use('/service', servicerouter);  // Route for service-related requests
+app.use('/booking', bookingrouter);  // Route for booking-related requests
+app.use('/user', router);  // Route for user-related requests
 
+connectDB();  // Connect to the database
 
-app.use('/service',servicerouter);
-app.use('/booking',bookingrouter);
-app.use('/user',router);
-
-connectDB();
-app.listen(port,()=>{
-    console.log(`listening to port ${port}`);
+// Start the server and listen on the defined port
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
 });

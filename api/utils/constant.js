@@ -1,2 +1,2 @@
-export const dbname= "bike-service-application";
-export const saltRounds=10;
+export const dbname = "bike-service-application";
+export const saltRounds = 10;

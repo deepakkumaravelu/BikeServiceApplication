@@ -5,12 +5,12 @@ const BookingSchema = new Schema(
   {
     serviceId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'Service',
+      ref: "Service",
       required: true,
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'User',
+      ref: "User",
       required: true,
     },
     isCompleted: {
