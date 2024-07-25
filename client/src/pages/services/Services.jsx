@@ -131,7 +131,7 @@ const Service = () => {
   };
 
   return (
-    <>
+    <div  className='mt-5'>
       {cookies.role ? (
         <>
           <Container>
@@ -155,7 +155,7 @@ const Service = () => {
                         <Button
                           variant="outline-primary"
                           size="lg"
-                          className="w-100"
+                          className="w-100  mt-2"
                           onClick={() => {
                             handleShow();
                             setTitle(service.title);
@@ -264,7 +264,7 @@ const Service = () => {
           </Modal>
         </>
       )}
-    </>
+    </div>
   );
 };
 

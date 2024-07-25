@@ -1,47 +1,63 @@
-
-import './App.css'
-import Home from './pages/home/Home'
-import Login from './pages/Login/Login'
+import './App.css';
+import Home from './pages/home/Home';
+import Login from './pages/Login/Login';
 import Register from './pages/register/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Services from './pages/services/Services';
-
 import Booking from './pages/booking/Booking';
-import AddService from './pages/addservice/AddService'
-import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
-import { useCookies } from "react-cookie";
+import AddService from './pages/addservice/AddService';
+import { useCookies } from 'react-cookie';
 import { Navigate } from 'react-router-dom';
+import Layout from './components/layout/Layout';
+
 const ProtectedRoute = ({ children }) => {
   const [cookies] = useCookies();
   return cookies.token ? children : <Navigate to="/" />;
 };
+
 const routes = createBrowserRouter([
   {
     path: "/",
-    Component: Home,
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
   },
   {
     path: "/login",
-    Component: Login,
+    element: (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
   },
   {
     path: "/signup",
-    Component: Register,
+    element: (
+      <Layout>
+        <Register />
+      </Layout>
+    ),
   },
   {
     path: "/services",
     element: (
       <ProtectedRoute>
-        <Services />
+        <Layout>
+          <Services />
+        </Layout>
       </ProtectedRoute>
     ),
-  },{
-    path:"/addservice",
+  },
+  {
+    path: "/addservice",
     element: (
       <ProtectedRoute>
-        <AddService />
+        <Layout>
+          <AddService />
+        </Layout>
       </ProtectedRoute>
     ),
   },
@@ -49,24 +65,18 @@ const routes = createBrowserRouter([
     path: "/booking",
     element: (
       <ProtectedRoute>
-        <Booking />
+        <Layout>
+          <Booking />
+        </Layout>
       </ProtectedRoute>
     ),
   },
 ]);
+
 function App() {
-  
   return (
-    <>
-  
-      {/* <Navbar /> */}
-     
-        <RouterProvider router={routes} />
-      
-      {/* <Footer /> */}
-    
-    </>
-  )
+    <RouterProvider router={routes} />
+  );
 }
 
-export default App
+export default App;

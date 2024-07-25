@@ -17,9 +17,13 @@ html, body {
   }
   
   .login-container {
-    background: white; /* Optional: Add a background color to the form container */
+    background: white; 
     padding: 2rem;
-    border-radius: 8px; /* Optional: Add rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
+  .form-container {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }

@@ -77,7 +77,7 @@ const Booking = () => {
   };
 
   return (
-    <Container>
+    <Container className='mt-5'>
       {cookies.role ? (
         bookings.length > 0 ? (
           <Row>

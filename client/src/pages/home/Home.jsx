@@ -8,7 +8,7 @@ import './Home.css';
 const Home = () => {
   return (
     <>
-      <Navbar/>
+
       
       <main className="mt-3 pt-3">
         <Container>
@@ -142,8 +142,7 @@ const Home = () => {
 
         </Container>
       </main>
-      
-      <Footer />
+
     </>
   );
 }
