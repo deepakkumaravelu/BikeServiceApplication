@@ -6,8 +6,17 @@ import Register from './pages/register/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
 import Services from './pages/services/Services';
-import Service from './pages/service/Service';
+
 import Booking from './pages/booking/Booking';
+import AddService from './pages/addservice/AddService'
+import Navbar from './components/navbar/Navbar';
+import Footer from './components/footer/Footer';
+import { useCookies } from "react-cookie";
+import { Navigate } from 'react-router-dom';
+const ProtectedRoute = ({ children }) => {
+  const [cookies] = useCookies();
+  return cookies.token ? children : <Navigate to="/" />;
+};
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -23,23 +32,39 @@ const routes = createBrowserRouter([
   },
   {
     path: "/services",
-    Component: Services,
-  },
-  {
-    path: "/service/:id",
-    Component: Service,
+    element: (
+      <ProtectedRoute>
+        <Services />
+      </ProtectedRoute>
+    ),
+  },{
+    path:"/addservice",
+    element: (
+      <ProtectedRoute>
+        <AddService />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/booking",
-    Component: Booking,
+    element: (
+      <ProtectedRoute>
+        <Booking />
+      </ProtectedRoute>
+    ),
   },
 ]);
 function App() {
   
   return (
     <>
-      <RouterProvider router={routes} />
-
+  
+      {/* <Navbar /> */}
+     
+        <RouterProvider router={routes} />
+      
+      {/* <Footer /> */}
+    
     </>
   )
 }

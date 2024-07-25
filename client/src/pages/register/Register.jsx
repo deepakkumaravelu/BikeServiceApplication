@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './Register.css'
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const[username,setUsername]=useState("");
     const[email,setEmail]=useState("");
@@ -7,6 +8,7 @@ const Register = () => {
     const[phone,setPhone]=useState("");
     const[location,setLocation]=useState("");
     const[isSeller,setIsSeller]=useState(false);
+    const navigate=useNavigate();
     function handleUsenameChange(e){
         setUsername(e.target.value);
     }
@@ -44,15 +46,16 @@ const Register = () => {
             }),
           });
           console.log(loginResponse.json());
-        //   const loginData = await loginResponse.json()
-        //   if(loginData.status === "failure"){
-        //     alert(loginData.message)
-        //   }else{
-        //       console.log(loginData);
-        //       setCookie('token', loginData.accessToken, { maxAge: 60 * 60 * 60 })
-        //       setCookie('userId', loginData.userDetails.userID, { maxAge: 60 * 60 * 60 })
-        //       navigate("/expense")
-        //   }
+          const loginData = await loginResponse.json()
+          if(loginData.status === "failure"){
+            alert(loginData.message)
+          }else{
+              console.log(loginData);
+              setCookie('token', loginData.accessToken, { maxAge: 60 * 60 * 60 })
+              setCookie('userId', loginData.userDetails.userID, { maxAge: 60 * 60 * 60 })
+              setCookie('role',loginData.userDetails.isSeller,{ maxAge: 60 * 60 * 60 })
+              navigate("/")
+          }
         } catch (error) {
           console.log("API error");
         } finally{
