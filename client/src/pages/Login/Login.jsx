@@ -71,7 +71,7 @@ const Login = () => {
                 className="form-control"
                 id="inputEmail"
                 onChange={handleEmailChange}
-                required // Email input field
+                required 
               />
             </div>
             <div className="col-md-12">
@@ -83,7 +83,7 @@ const Login = () => {
                 className="form-control"
                 id="inputPassword"
                 onChange={handlePasswordChange}
-                required // Password input field
+                required 
               />
             </div>
             <div className="col-12">
