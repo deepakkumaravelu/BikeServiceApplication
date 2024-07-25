@@ -1,16 +1,13 @@
-import React from 'react';
-import { Nav, Container, Carousel, Button } from 'react-bootstrap';
-
-import './Home.css'; 
+import React from "react";
+import { Container, Carousel } from "react-bootstrap";
+import "./Home.css";
 
 const Home = () => {
   return (
     <>
-
-      
       <main className="mt-3 pt-3">
         <Container>
-          <Carousel className="mb-5 carousel-custom"> 
+          <Carousel className="mb-5 carousel-custom">
             <Carousel.Item>
               <img
                 className="d-block w-100"
@@ -19,7 +16,10 @@ const Home = () => {
               />
               <Carousel.Caption>
                 <h3>Professional Bike Service</h3>
-                <p>We provide top-notch bike servicing to ensure your ride is smooth and safe.</p>
+                <p>
+                  We provide top-notch bike servicing to ensure your ride is
+                  smooth and safe.
+                </p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -30,7 +30,10 @@ const Home = () => {
               />
               <Carousel.Caption>
                 <h3>Experienced Mechanics</h3>
-                <p>Our team of experienced mechanics is here to help with all your bike needs.</p>
+                <p>
+                  Our team of experienced mechanics is here to help with all
+                  your bike needs.
+                </p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -41,12 +44,15 @@ const Home = () => {
               />
               <Carousel.Caption>
                 <h3>Quality Parts and Service</h3>
-                <p>We use only the best parts and provide exceptional service to keep your bike in top condition.</p>
+                <p>
+                  We use only the best parts and provide exceptional service to
+                  keep your bike in top condition.
+                </p>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
 
-          <div className="row">
+          <div className="row mt-5">
             <div className="col-lg-4 text-center">
               <img
                 className="bd-placeholder-img rounded-circle"
@@ -56,7 +62,10 @@ const Home = () => {
                 alt="Service 1"
               />
               <h2 className="fw-normal">Bike Tune-Up</h2>
-              <p>Ensure your bike is in perfect condition with our comprehensive tune-up services.</p>
+              <p>
+                Ensure your bike is in perfect condition with our comprehensive
+                tune-up services.
+              </p>
             </div>
             <div className="col-lg-4 text-center">
               <img
@@ -67,7 +76,10 @@ const Home = () => {
                 alt="Service 2"
               />
               <h2 className="fw-normal">Brake Repair</h2>
-              <p>We offer expert brake repair services to ensure your safety on the road.</p>
+              <p>
+                We offer expert brake repair services to ensure your safety on
+                the road.
+              </p>
             </div>
             <div className="col-lg-4 text-center">
               <img
@@ -78,16 +90,25 @@ const Home = () => {
                 alt="Service 3"
               />
               <h2 className="fw-normal">Tire Replacement</h2>
-              <p>Get the best tires for your bike with our tire replacement services.</p>
+              <p>
+                Get the best tires for your bike with our tire replacement
+                services.
+              </p>
             </div>
           </div>
 
           <hr className="featurette-divider" />
 
-          <div className="row featurette">
+          <div className="row featurette mt-5">
             <div className="col-md-7">
-              <h2 className="featurette-heading fw-normal lh-1">Comprehensive Bike Checkups <span className="text-muted">for peace of mind.</span></h2>
-              <p className="lead">Our comprehensive bike checkups ensure every part of your bike is in top condition.</p>
+              <h2 className="featurette-heading fw-normal lh-1">
+                Comprehensive Bike Checkups{" "}
+                <span className="text-muted">for peace of mind.</span>
+              </h2>
+              <p className="lead">
+                Our comprehensive bike checkups ensure every part of your bike
+                is in top condition.
+              </p>
             </div>
             <div className="col-md-5">
               <img
@@ -104,8 +125,12 @@ const Home = () => {
 
           <div className="row featurette">
             <div className="col-md-7 order-md-2">
-              <h2 className="featurette-heading fw-normal lh-1">Expert Repairs <span className="text-muted">that last.</span></h2>
-              <p className="lead">Our expert repairs ensure your bike runs smoothly and reliably.</p>
+              <h2 className="featurette-heading fw-normal lh-1">
+                Expert Repairs <span className="text-muted">that last.</span>
+              </h2>
+              <p className="lead">
+                Our expert repairs ensure your bike runs smoothly and reliably.
+              </p>
             </div>
             <div className="col-md-5 order-md-1">
               <img
@@ -122,8 +147,14 @@ const Home = () => {
 
           <div className="row featurette">
             <div className="col-md-7">
-              <h2 className="featurette-heading fw-normal lh-1">Custom Upgrades <span className="text-muted">to enhance your ride.</span></h2>
-              <p className="lead">Enhance your bike with our custom upgrade services tailored to your needs.</p>
+              <h2 className="featurette-heading fw-normal lh-1">
+                Custom Upgrades{" "}
+                <span className="text-muted">to enhance your ride.</span>
+              </h2>
+              <p className="lead">
+                Enhance your bike with our custom upgrade services tailored to
+                your needs.
+              </p>
             </div>
             <div className="col-md-5">
               <img
@@ -137,12 +168,10 @@ const Home = () => {
           </div>
 
           <hr className="featurette-divider" />
-
         </Container>
       </main>
-
     </>
   );
-}
+};
 
 export default Home;

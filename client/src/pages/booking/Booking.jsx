@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
-import { Card, Container, Row, Col, Button, Modal, Form, Alert } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+import {
+  Card,
+  Container,
+  Row,
+  Col,
+  Button,
+  Modal,
+  Form,
+  Alert,
+} from "react-bootstrap";
 
 const Booking = () => {
   const [cookies] = useCookies(["token"]);
@@ -22,18 +31,20 @@ const Booking = () => {
       })
       .catch((error) => console.log(error));
 
-    fetch(`${import.meta.env.VITE_API_URL}/booking/get-bookings/${cookies.userId}`, {
-      headers: {
-        Authorization: `Bearer ${cookies.token}`,
-      },
-    })
+    fetch(
+      `${import.meta.env.VITE_API_URL}/booking/get-bookings/${cookies.userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data.bookings);
         setUserBookings(data.bookings);
       })
       .catch((error) => console.log(error));
-
   }, [cookies.token, cookies.userId]);
 
   const handleOpenModal = (booking) => {
@@ -50,16 +61,21 @@ const Booking = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (selectedBooking) {
-      await fetch(`${import.meta.env.VITE_API_URL}/booking/update-booking/${selectedBooking._id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-        body: JSON.stringify({
-          isCompleted,
-        }),
-      })
+      await fetch(
+        `${import.meta.env.VITE_API_URL}/booking/update-booking/${
+          selectedBooking._id
+        }`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          body: JSON.stringify({
+            isCompleted,
+          }),
+        }
+      )
         .then(() => {
           setBookings((prevBookings) =>
             prevBookings.map((booking) =>
@@ -77,7 +93,7 @@ const Booking = () => {
   };
 
   return (
-    <Container className='mt-5'>
+    <Container className="mt-5">
       {cookies.role ? (
         bookings.length > 0 ? (
           <Row>
@@ -87,25 +103,34 @@ const Booking = () => {
                   <Card.Body>
                     <Card.Title>Booking Details</Card.Title>
                     <Card.Text>
-                      Service: {booking.serviceId ? booking.serviceId.title : 'N/A'}
+                      Service:{" "}
+                      {booking.serviceId ? booking.serviceId.title : "N/A"}
                     </Card.Text>
                     <Card.Text>
-                      User name: {booking.userId ? booking.userId.username : 'N/A'}
+                      User name:{" "}
+                      {booking.userId ? booking.userId.username : "N/A"}
                     </Card.Text>
                     <Card.Text>
-                      Email: {booking.userId ? booking.userId.email : 'N/A'}
+                      Email: {booking.userId ? booking.userId.email : "N/A"}
                     </Card.Text>
                     <Card.Text>
-                      Phone: {booking.userId ? booking.userId.phone : 'N/A'}
+                      Phone: {booking.userId ? booking.userId.phone : "N/A"}
                     </Card.Text>
                     <Card.Text>
-                      Location: {booking.userId ? booking.userId.location : 'N/A'}
+                      Location:{" "}
+                      {booking.userId ? booking.userId.location : "N/A"}
                     </Card.Text>
                     <Card.Text>
-                      Cost: {booking.serviceId ? booking.serviceId.price : 'N/A'} ₹
+                      Cost:{" "}
+                      {booking.serviceId ? booking.serviceId.price : "N/A"} ₹
                     </Card.Text>
-                    <Card.Text>Status: {booking.isCompleted ? 'Completed' : 'Pending'}</Card.Text>
-                    <Button variant="primary" onClick={() => handleOpenModal(booking)}>
+                    <Card.Text>
+                      Status: {booking.isCompleted ? "Completed" : "Pending"}
+                    </Card.Text>
+                    <Button
+                      variant="primary"
+                      onClick={() => handleOpenModal(booking)}
+                    >
                       Update Status
                     </Button>
                   </Card.Body>
@@ -114,47 +139,46 @@ const Booking = () => {
             ))}
           </Row>
         ) : (
-          <Alert variant="info">
-            No bookings available.
-          </Alert>
+          <Alert variant="info">No bookings available.</Alert>
         )
+      ) : userBookings.length > 0 ? (
+        <Row>
+          {userBookings.map((booking) => (
+            <Col key={booking._id} sm={12} md={6} lg={4}>
+              <Card className="mb-3">
+                <Card.Body>
+                  <Card.Title>Booking Details</Card.Title>
+                  <Card.Text>
+                    Service:{" "}
+                    {booking.serviceId ? booking.serviceId.title : "N/A"}
+                  </Card.Text>
+                  <Card.Text>
+                    User name:{" "}
+                    {booking.userId ? booking.userId.username : "N/A"}
+                  </Card.Text>
+                  <Card.Text>
+                    Email: {booking.userId ? booking.userId.email : "N/A"}
+                  </Card.Text>
+                  <Card.Text>
+                    Phone: {booking.userId ? booking.userId.phone : "N/A"}
+                  </Card.Text>
+                  <Card.Text>
+                    Location: {booking.userId ? booking.userId.location : "N/A"}
+                  </Card.Text>
+                  <Card.Text>
+                    Cost: {booking.serviceId ? booking.serviceId.price : "N/A"}{" "}
+                    ₹
+                  </Card.Text>
+                  <Card.Text>
+                    Status: {booking.isCompleted ? "Completed" : "Pending"}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       ) : (
-        userBookings.length > 0 ? (
-          <Row>
-            {userBookings.map((booking) => (
-              <Col key={booking._id} sm={12} md={6} lg={4}>
-                <Card className="mb-3">
-                  <Card.Body>
-                    <Card.Title>Booking Details</Card.Title>
-                    <Card.Text>
-                      Service: {booking.serviceId ? booking.serviceId.title : 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      User name: {booking.userId ? booking.userId.username : 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      Email: {booking.userId ? booking.userId.email : 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      Phone: {booking.userId ? booking.userId.phone : 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      Location: {booking.userId ? booking.userId.location : 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      Cost: {booking.serviceId ? booking.serviceId.price : 'N/A'} ₹
-                    </Card.Text>
-                    <Card.Text>Status: {booking.isCompleted ? 'Completed' : 'Pending'}</Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        ) : (
-          <Alert variant="info">
-            No bookings have been made yet.
-          </Alert>
-        )
+        <Alert variant="info">No bookings have been made yet.</Alert>
       )}
 
       <Modal show={showModal} onHide={handleCloseModal}>

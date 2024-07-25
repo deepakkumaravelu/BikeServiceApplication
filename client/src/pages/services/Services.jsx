@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import './Services.css';
-import { Container, Row, Col, Card, Button, Modal } from 'react-bootstrap';
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import "./Services.css";
+import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Service = () => {
   const [cookies] = useCookies(["token"]);
@@ -44,11 +44,14 @@ const Service = () => {
   }
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/service/get-service/${cookies.userId}`, {
-      headers: {
-        Authorization: `Bearer ${cookies.token}`,
-      },
-    })
+    fetch(
+      `${import.meta.env.VITE_API_URL}/service/get-service/${cookies.userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
@@ -71,12 +74,15 @@ const Service = () => {
 
   const deleteService = (serviceId) => {
     setId(serviceId);
-    fetch(`${import.meta.env.VITE_API_URL}/service/delete-service/${serviceId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${cookies.token}`,
-      },
-    })
+    fetch(
+      `${import.meta.env.VITE_API_URL}/service/delete-service/${serviceId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.ok) {
           setId(null);
@@ -88,14 +94,17 @@ const Service = () => {
   };
 
   const handleBook = async () => {
-    await fetch(`${import.meta.env.VITE_API_URL}/booking/new-booking/${cookies.userId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies.token}`,
-      },
-      body: JSON.stringify({ serviceId: selectedServiceId }),
-    })
+    await fetch(
+      `${import.meta.env.VITE_API_URL}/booking/new-booking/${cookies.userId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        body: JSON.stringify({ serviceId: selectedServiceId }),
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
@@ -106,20 +115,23 @@ const Service = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await fetch(`${import.meta.env.VITE_API_URL}/service/update-service/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${cookies.token}`,
-      },
-      body: JSON.stringify({
-        title,
-        desc: description,
-        category,
-        price,
-        deliveryTime,
-      }),
-    })
+    await fetch(
+      `${import.meta.env.VITE_API_URL}/service/update-service/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        body: JSON.stringify({
+          title,
+          desc: description,
+          category,
+          price,
+          deliveryTime,
+        }),
+      }
+    )
       .then((res) => {
         if (res.ok) {
           setId(null);
@@ -131,7 +143,7 @@ const Service = () => {
   };
 
   return (
-    <div  className='mt-5'>
+    <div className="mt-5">
       {cookies.role ? (
         <>
           <Container>
@@ -145,13 +157,21 @@ const Service = () => {
                       </Card.Header>
                       <Card.Body>
                         <Card.Title className="pricing-card-title">
-                          {service.price}<small className="text-muted fw-light">/mo</small>
+                          {service.price}
+                          <small className="text-muted fw-light">/mo</small>
                         </Card.Title>
                         <ul className="list-unstyled mt-3 mb-4">
                           <li>{service.desc}</li>
                           <li>{service.deliveryTime}</li>
                         </ul>
-                        <Button variant="outline-primary" size="lg" className="w-100" onClick={() => deleteService(service._id)}>Delete</Button>
+                        <Button
+                          variant="outline-primary"
+                          size="lg"
+                          className="w-100"
+                          onClick={() => deleteService(service._id)}
+                        >
+                          Delete
+                        </Button>
                         <Button
                           variant="outline-primary"
                           size="lg"
@@ -183,32 +203,84 @@ const Service = () => {
             <Modal.Body>
               <form className="p-5 row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-12">
-                  <label htmlFor="inputTitle" className="form-label">Title</label>
-                  <input type="text" className="form-control" id="inputTitle" value={title} onChange={handleTitleChange} required />
+                  <label htmlFor="inputTitle" className="form-label">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputTitle"
+                    value={title}
+                    onChange={handleTitleChange}
+                    required
+                  />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="inputDescription" className="form-label">Description</label>
-                  <textarea className="form-control" id="inputDescription" value={description} onChange={handleDescriptionChange} required></textarea>
+                  <label htmlFor="inputDescription" className="form-label">
+                    Description
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="inputDescription"
+                    value={description}
+                    onChange={handleDescriptionChange}
+                    required
+                  ></textarea>
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="inputCategory" className="form-label">Category</label>
-                  <input type="text" className="form-control" id="inputCategory" value={category} onChange={handleCategoryChange} required />
+                  <label htmlFor="inputCategory" className="form-label">
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputCategory"
+                    value={category}
+                    onChange={handleCategoryChange}
+                    required
+                  />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="inputPrice" className="form-label">Price</label>
-                  <input type="number" className="form-control" id="inputPrice" value={price} onChange={handlePriceChange} required />
+                  <label htmlFor="inputPrice" className="form-label">
+                    Price
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inputPrice"
+                    value={price}
+                    onChange={handlePriceChange}
+                    required
+                  />
                 </div>
                 <div className="col-md-12">
-                  <label htmlFor="inputDeliveryTime" className="form-label">Delivery Time (days)</label>
-                  <input type="number" className="form-control" id="inputDeliveryTime" value={deliveryTime} onChange={handleDeliveryTimeChange} required />
+                  <label htmlFor="inputDeliveryTime" className="form-label">
+                    Delivery Time (days)
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inputDeliveryTime"
+                    value={deliveryTime}
+                    onChange={handleDeliveryTimeChange}
+                    required
+                  />
                 </div>
                 <div className="col-12">
-                  <button type="submit" className="btn btn-primary" onClick={handleClose}>Submit</button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleClose}
+                  >
+                    Submit
+                  </button>
                 </div>
               </form>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>Close</Button>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
             </Modal.Footer>
           </Modal>
         </>
@@ -225,7 +297,8 @@ const Service = () => {
                       </Card.Header>
                       <Card.Body>
                         <Card.Title className="pricing-card-title">
-                          {service.price}<small className="text-muted fw-light">/mo</small>
+                          {service.price}
+                          <small className="text-muted fw-light">/mo</small>
                         </Card.Title>
                         <ul className="list-unstyled mt-3 mb-4">
                           <li>{service.desc}</li>
@@ -254,12 +327,14 @@ const Service = () => {
             <Modal.Header closeButton>
               <Modal.Title>Confirm Booking</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              Are you sure you want to book this service?
-            </Modal.Body>
+            <Modal.Body>Are you sure you want to book this service?</Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleConfirmClose}>Cancel</Button>
-              <Button variant="primary" onClick={handleBook}>Confirm</Button>
+              <Button variant="secondary" onClick={handleConfirmClose}>
+                Cancel
+              </Button>
+              <Button variant="primary" onClick={handleBook}>
+                Confirm
+              </Button>
             </Modal.Footer>
           </Modal>
         </>

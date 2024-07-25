@@ -1,9 +1,10 @@
 .carousel-custom {
-  width: 100%; /* Ensure the carousel takes up the full width of the container */
-  margin: auto; /* Center the carousel */
-}
-
-.carousel-custom .carousel-item img {
-  width: 100%; /* Ensure the images fit within the new dimensions */
-  height: auto; /* Maintain aspect ratio */
-}
+    width: 80%; /* Adjust this value as needed */
+    margin: 0 auto; /* Center the carousel */
+  }
+  
+  .carousel-custom .carousel-item img {
+    height: 500px; /* Adjust this value as needed */
+    object-fit: cover;
+  }
+  

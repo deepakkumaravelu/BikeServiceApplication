@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
-import './AddService.css'; 
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
+import "./AddService.css";
 const AddService = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -33,20 +33,23 @@ const AddService = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/service/add-service/${cookies.userId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookies.token}`,
-        },
-        body: JSON.stringify({
-          title,
-          desc: description,
-          category,
-          price,
-          deliveryTime,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/service/add-service/${cookies.userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          body: JSON.stringify({
+            title,
+            desc: description,
+            category,
+            price,
+            deliveryTime,
+          }),
+        }
+      );
       console.log(await response.json());
     } catch (error) {
       console.log(error);
@@ -57,31 +60,77 @@ const AddService = () => {
     <div className="mt-1 mx-auto form-container">
       <form className="p-5 row g-3" onSubmit={handleSubmit}>
         <div className="col-md-12">
-          <label htmlFor="inputTitle" className="form-label">Title</label>
-          <input type="text" className="form-control" id="inputTitle" value={title} onChange={handleTitleChange} required />
+          <label htmlFor="inputTitle" className="form-label">
+            Title
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputTitle"
+            value={title}
+            onChange={handleTitleChange}
+            required
+          />
         </div>
         <div className="col-md-12">
-          <label htmlFor="inputDescription" className="form-label">Description</label>
-          <textarea className="form-control" id="inputDescription" value={description} onChange={handleDescriptionChange} required></textarea>
+          <label htmlFor="inputDescription" className="form-label">
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="inputDescription"
+            value={description}
+            onChange={handleDescriptionChange}
+            required
+          ></textarea>
         </div>
         <div className="col-md-12">
-          <label htmlFor="inputCategory" className="form-label">Category</label>
-          <input type="text" className="form-control" id="inputCategory" value={category} onChange={handleCategoryChange} required />
+          <label htmlFor="inputCategory" className="form-label">
+            Category
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputCategory"
+            value={category}
+            onChange={handleCategoryChange}
+            required
+          />
         </div>
         <div className="col-md-12">
-          <label htmlFor="inputPrice" className="form-label">Price</label>
-          <input type="number" className="form-control" id="inputPrice" value={price} onChange={handlePriceChange} required />
+          <label htmlFor="inputPrice" className="form-label">
+            Price
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            id="inputPrice"
+            value={price}
+            onChange={handlePriceChange}
+            required
+          />
         </div>
         <div className="col-md-12">
-          <label htmlFor="inputDeliveryTime" className="form-label">Delivery Time (days)</label>
-          <input type="number" className="form-control" id="inputDeliveryTime" value={deliveryTime} onChange={handleDeliveryTimeChange} required />
+          <label htmlFor="inputDeliveryTime" className="form-label">
+            Delivery Time (days)
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            id="inputDeliveryTime"
+            value={deliveryTime}
+            onChange={handleDeliveryTimeChange}
+            required
+          />
         </div>
         <div className="col-12">
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default AddService;
