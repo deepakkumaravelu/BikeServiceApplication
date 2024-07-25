@@ -40,7 +40,7 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/user/new-user`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/new-user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

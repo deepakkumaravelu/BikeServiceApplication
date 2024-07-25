@@ -33,7 +33,7 @@ const AddService = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/service/add-service/${cookies.userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/service/add-service/${cookies.userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

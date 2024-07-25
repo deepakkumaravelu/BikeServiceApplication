@@ -11,7 +11,7 @@ const Booking = () => {
   const [userBookings, setUserBookings] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/booking/get-all-bookings', {
+    fetch(`${import.meta.env.VITE_API_URL}/booking/get-all-bookings`, {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
       },
@@ -22,7 +22,7 @@ const Booking = () => {
       })
       .catch((error) => console.log(error));
 
-    fetch(`http://localhost:3000/booking/get-bookings/${cookies.userId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/booking/get-bookings/${cookies.userId}`, {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
       },
@@ -50,7 +50,7 @@ const Booking = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (selectedBooking) {
-      await fetch(`http://localhost:3000/booking/update-booking/${selectedBooking._id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/booking/update-booking/${selectedBooking._id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

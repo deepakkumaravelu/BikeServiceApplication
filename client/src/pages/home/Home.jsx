@@ -1,8 +1,6 @@
 import React from 'react';
 import { Nav, Container, Carousel, Button } from 'react-bootstrap';
-import Footer from '../../components/footer/Footer';
 
-import Navbar from '../../components/navbar/Navbar';
 import './Home.css'; 
 
 const Home = () => {

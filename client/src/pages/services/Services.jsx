@@ -44,7 +44,7 @@ const Service = () => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/service/get-service/${cookies.userId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/service/get-service/${cookies.userId}`, {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
       },
@@ -56,7 +56,7 @@ const Service = () => {
       })
       .catch((error) => console.log(error));
 
-    fetch(`http://localhost:3000/service/get-all-service`, {
+    fetch(`${import.meta.env.VITE_API_URL}/service/get-all-service`, {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
       },
@@ -71,7 +71,7 @@ const Service = () => {
 
   const deleteService = (serviceId) => {
     setId(serviceId);
-    fetch(`http://localhost:3000/service/delete-service/${serviceId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/service/delete-service/${serviceId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${cookies.token}`,
@@ -88,7 +88,7 @@ const Service = () => {
   };
 
   const handleBook = async () => {
-    await fetch(`http://localhost:3000/booking/new-booking/${cookies.userId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/booking/new-booking/${cookies.userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const Service = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await fetch(`http://localhost:3000/service/update-service/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/service/update-service/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
