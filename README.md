@@ -49,37 +49,37 @@ This project is a service booking platform where users can register, view availa
    ```
 
 ## create .env
-JWT_SECRET=your_jwt_secret
-MONGO_URI=your_mongodb_uri
-EMAIL_USER=your_email@example.com
-EMAIL_PASS=your_email_password
+- JWT_SECRET=your_jwt_secret
+- MONGO_URI=your_mongodb_uri
+- EMAIL_USER=your_email@example.com
+- EMAIL_PASS=your_email_password
 
-npm start
+
 
 ## Frontend Setup
-Navigate to the Frontend Directory
-cd frontend
-npm install
-Or, if you prefer Yarn:
-yarn install
+- Navigate to the Frontend Directory
+- cd frontend
+- npm install
+  Or, if you prefer Yarn:
+- yarn install
 
 ## Run the React Development Server:
-npm start
+- npm start
 Or, if you prefer Yarn:
-yarn start
+- yarn start
 The React development server will start and open the application in your default web browser, typically at http://localhost:5173 as it is an vite project.
 
 ## Usage
 ## User Registration and Login:
-Navigate to the registration page to create an account.
-Log in using your credentials to access the service listing and booking functionalities.
+- Navigate to the registration page to create an account.
+- Log in using your credentials to access the service listing and booking functionalities.
 
 ## Admin Dashboard:
-Admins can log in to access service management features.
-Add, update, and delete services from the admin panel.
-Booking Services:
+- Admins can log in to access service management features.
+- Add, update, and delete services from the admin panel.
 
-Users can select a service to book and view its status and location.
-Email Notifications
-Service Selection: An email will be sent to the service owner when a user selects their service.
-Service Status Updates: Users will receive emails when the service status is updated (e.g., pending, canceled, or completed).
+## Booking Services:
+- Users can select a service to book and view its status and location.
+- Email Notifications
+- Service Selection: An email will be sent to the service owner when a user selects their service.
+- Service Status Updates: Users will receive emails when the service status is updated (e.g., pending, canceled, or completed).
