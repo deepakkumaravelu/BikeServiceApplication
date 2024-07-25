@@ -6,16 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const Service = () => {
   const [cookies] = useCookies(["token"]);
-  const [services, setServices] = useState([]);
-  const [allServices, setAllServices] = useState([]);
-  const [id, setId] = useState("");
-  const [show, setShow] = useState(false);
-  const [confirmShow, setConfirmShow] = useState(false);
-  const [selectedServiceId, setSelectedServiceId] = useState(null);
-  const handleClose = () => setShow(false);
-  const handleConfirmClose = () => setConfirmShow(false);
-  const handleShow = () => setShow(true);
-  const handleConfirmShow = () => setConfirmShow(true);
+  const [services, setServices] = useState([]); // Services for the logged-in user
+  const [allServices, setAllServices] = useState([]); // All services for non-logged-in users
+  const [id, setId] = useState(""); // ID for the service to update or delete
+  const [show, setShow] = useState(false); // State for update modal visibility
+  const [confirmShow, setConfirmShow] = useState(false); // State for booking confirmation modal
+  const [selectedServiceId, setSelectedServiceId] = useState(null); // Selected service ID for booking
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -23,6 +19,7 @@ const Service = () => {
   const [deliveryTime, setDeliveryTime] = useState(0);
   const navigate = useNavigate();
 
+  // Handlers for form input changes
   function handleTitleChange(e) {
     setTitle(e.target.value);
   }
@@ -44,6 +41,7 @@ const Service = () => {
   }
 
   useEffect(() => {
+    // Fetch services for the logged-in user
     fetch(
       `${import.meta.env.VITE_API_URL}/service/get-service/${cookies.userId}`,
       {
@@ -54,11 +52,11 @@ const Service = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setServices(res);
       })
       .catch((error) => console.log(error));
 
+    // Fetch all services
     fetch(`${import.meta.env.VITE_API_URL}/service/get-all-service`, {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
@@ -66,7 +64,6 @@ const Service = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setAllServices(res);
       })
       .catch((error) => console.log(error));
@@ -107,7 +104,6 @@ const Service = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         handleConfirmClose();
       })
       .catch((error) => console.log(error));

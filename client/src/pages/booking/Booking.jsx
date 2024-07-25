@@ -12,13 +12,17 @@ import {
 } from "react-bootstrap";
 
 const Booking = () => {
+  // Hook to access cookies for authentication
   const [cookies] = useCookies(["token"]);
+  
+  // State hooks to manage bookings and modal state
   const [bookings, setBookings] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [userBookings, setUserBookings] = useState([]);
 
+  // Fetching all bookings and user-specific bookings on component mount
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/booking/get-all-bookings`, {
       headers: {
@@ -47,17 +51,20 @@ const Booking = () => {
       .catch((error) => console.log(error));
   }, [cookies.token, cookies.userId]);
 
+  // Handler to open the modal for updating booking status
   const handleOpenModal = (booking) => {
     setSelectedBooking(booking);
     setIsCompleted(booking.isCompleted);
     setShowModal(true);
   };
 
+  // Handler to close the modal
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedBooking(null);
   };
 
+  // Function to handle form submission for updating booking status
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (selectedBooking) {
@@ -77,6 +84,7 @@ const Booking = () => {
         }
       )
         .then(() => {
+          // Updating the bookings state with the new status
           setBookings((prevBookings) =>
             prevBookings.map((booking) =>
               booking._id === selectedBooking._id

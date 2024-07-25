@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import "./Register.css";
+import "./Register.css"; // Importing custom CSS for styling
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const Register = () => {
+  // State management for registration form inputs
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
-  const [isSeller, setIsSeller] = useState(false);
-  const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies([]);
+  const [isSeller, setIsSeller] = useState(false); // State to determine if the user is a seller
+  const navigate = useNavigate(); // Hook for navigation
+  const [cookies, setCookie] = useCookies([]); // Hook for managing cookies
 
+  // Handlers for form input changes
   function handleUsernameChange(e) {
     setUsername(e.target.value);
   }
@@ -34,14 +36,14 @@ const Register = () => {
   }
 
   function handleIsSellerChange() {
-    setIsSeller(!isSeller);
+    setIsSeller(!isSeller); // Toggle seller status
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/user/new-user`,
+        `${import.meta.env.VITE_API_URL}/user/new-user`, // API endpoint for registration
         {
           method: "POST",
           headers: {
@@ -53,29 +55,31 @@ const Register = () => {
             username,
             phone,
             location,
-            isSeller,
+            isSeller, // Sending form data in the request body
           }),
         }
       );
 
       const data = await response.json();
       if (data.status === "failure") {
-        alert(data.message);
+        alert(data.message); // Alert user on registration failure
       } else {
         console.log(data);
+        // Setting cookies on successful registration
         setCookie("token", data.accessToken, { maxAge: 60 * 60 * 60 });
         setCookie("userId", data.userDetails.userID, { maxAge: 60 * 60 * 60 });
         setCookie("role", data.userDetails.isSeller, { maxAge: 60 * 60 * 60 });
-        navigate("/");
+        navigate("/"); // Navigating to home on successful registration
       }
     } catch (error) {
-      console.log("API error");
+      console.log("API error"); // Logging error
     }
   };
 
   return (
     <div className="register-container mt-5 mx-auto form-container">
       <form className="p-5 row g-3" onSubmit={handleSubmit}>
+        {/* Form fields for user input */}
         <div className="col-md-12">
           <label htmlFor="inputUsername" className="form-label">
             Username

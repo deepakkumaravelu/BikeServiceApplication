@@ -1,12 +1,13 @@
 import React from "react";
 import { Container, Carousel } from "react-bootstrap";
-import "./Home.css";
+import "./Home.css"; // Importing custom CSS for styling
 
 const Home = () => {
   return (
     <>
       <main className="mt-3 pt-3">
         <Container>
+          {/* Carousel for displaying featured images and captions */}
           <Carousel className="mb-5 carousel-custom">
             <Carousel.Item>
               <img
@@ -52,6 +53,7 @@ const Home = () => {
             </Carousel.Item>
           </Carousel>
 
+          {/* Section for highlighting services */}
           <div className="row mt-5">
             <div className="col-lg-4 text-center">
               <img
@@ -99,6 +101,7 @@ const Home = () => {
 
           <hr className="featurette-divider" />
 
+          {/* Featurette sections to highlight different aspects of the service */}
           <div className="row featurette mt-5">
             <div className="col-md-7">
               <h2 className="featurette-heading fw-normal lh-1">

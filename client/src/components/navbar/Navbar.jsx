@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [cookies, setCookie, removeCookie] = useCookies([
+  // Get cookies and functions to set and remove cookies
+  const [cookies, removeCookie] = useCookies([
     "token",
     "userId",
     "role",
   ]);
+
+  // State to track authentication status
   const [isAuthenticated, setIsAuthenticated] = useState(!!cookies.token);
 
+  // Update authentication status when cookies change
   useEffect(() => {
     setIsAuthenticated(!!cookies.token);
   }, [cookies]);
 
+  // Handle logout by removing cookies and updating authentication status
   const handleLogout = () => {
     removeCookie("userId");
     removeCookie("token");
@@ -35,6 +39,7 @@ const Navbar = () => {
             </a>
 
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              {/* Conditional rendering based on authentication status and role */}
               {isAuthenticated && cookies.role === true ? (
                 <>
                   <li>

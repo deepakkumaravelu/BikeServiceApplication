@@ -11,11 +11,13 @@ import { useCookies } from "react-cookie";
 import { Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 
+// ProtectedRoute component to restrict access to authenticated users
 const ProtectedRoute = ({ children }) => {
   const [cookies] = useCookies();
   return cookies.token ? children : <Navigate to="/" />;
 };
 
+// Define the routes for the application
 const routes = createBrowserRouter([
   {
     path: "/",
