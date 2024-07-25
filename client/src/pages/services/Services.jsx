@@ -138,6 +138,11 @@ const Service = () => {
       });
   };
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleConfirmClose = () => setConfirmShow(false);
+  const handleConfirmShow = () => setConfirmShow(true);
+
   return (
     <div className="mt-5">
       {cookies.role ? (
