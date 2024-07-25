@@ -1,7 +1,7 @@
 import express from 'express';
 
 const router = express.Router();
-import { addService,getService,updateService,deleteService } from '../controllers/serviceControllers.js';
+import { addService,getService,updateService,deleteService, getAllService } from '../controllers/serviceControllers.js';
 
 import jwt from "jsonwebtoken";
 
@@ -40,6 +40,8 @@ function authenticateToken(req, res, next) {
 router.post("/add-service/:userId", authenticateToken, addService);
 
 router.get("/get-service/:userId", authenticateToken, getService);
+
+router.get("/get-all-service", authenticateToken, getAllService);
 
 router.delete("/delete-service/:id", authenticateToken, deleteService);
 

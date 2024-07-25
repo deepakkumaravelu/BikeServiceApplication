@@ -23,6 +23,20 @@ import Service from "../models/Service.js";
         });
       }
 }
+// app.get('/get-all-service/:userId',
+export const getAllService=async(req,res)=>{
+  try {
+      const allservices = await Service.find();
+      res.status(200).json(allservices);
+    } catch (error) {
+      res.status(500).json({
+        status: "failure",
+        message: "could not fetch data",
+        error: error,
+      });
+    }
+}
+
 // app.get('/get-service/:userId',
    export const getService=async(req,res)=>{
     try {
@@ -45,6 +59,8 @@ import Service from "../models/Service.js";
           title: req.body.title,
           category: req.body.category,
           price: req.body.price,
+          desc: req.body.desc,
+          deliveryTime: req.body.deliveryTime,
           userId: req.body.userId,
         });
         res.status(200).json({

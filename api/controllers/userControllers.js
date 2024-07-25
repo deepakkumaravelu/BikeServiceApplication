@@ -26,7 +26,9 @@ export const addUser = async (req, res) => {
                 email: req.body.email,
                 password: hash, 
                 username: req.body.username,
-                isSeller:req.body.isSeller
+                isSeller:req.body.isSeller,
+                location:req.body.location,
+                phone:req.body.phone
               });
               const userDetails = {
                 userName: newUser.username,
