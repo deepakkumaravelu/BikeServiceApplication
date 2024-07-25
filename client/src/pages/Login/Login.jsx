@@ -88,7 +88,7 @@ const Login = () => {
             </div>
             <div className="col-12">
               <button type="submit" className="btn btn-primary">
-                Log in // Submit button
+                Log in 
               </button>
             </div>
           </form>
