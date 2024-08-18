@@ -1,14 +1,27 @@
 import Booking from '../models/Booking.js';
+import Service from '../models/Service.js';
 import User from '../models/User.js';
 import nodemailer from 'nodemailer';
 
 // Create a new booking
 export const newBooking = async (req, res) => {
   const { serviceId } = req.body;
+  const serviceOwner = await Service.findById({
+    _id:serviceId
+  });
+  const OwnerDetail = await User.findById({
+    _id:serviceOwner.userId
+  });
+  const UserDetail= await User.findById({
+    _id:req.params.userId
+  })
+  console.log(OwnerDetail.email);
   try {
     // Create a new booking record
+    console.log("admin id "+ serviceOwner.userId);
     const newBooking = await Booking.create({
       serviceId,
+      adminId: serviceOwner.userId,
       userId: req.params.userId
     });
 
@@ -24,9 +37,9 @@ export const newBooking = async (req, res) => {
     // Define email options
     let mailOptions = {
       from: process.env.MAIL_USERNAME,
-      to: process.env.MAIL_USERNAME,
-      subject: `New booking placed for your service ${serviceId}`,
-      text: `User:${req.params.userId} placed order at ${new Date(Date.now())}`
+      to: OwnerDetail.email,
+      subject: `New booking placed for your service ${serviceOwner.title}`,
+      text: `User : ${UserDetail.username} placed order at ${new Date(Date.now()).toLocaleDateString()}`
     };
 
     // Send email notification
@@ -82,7 +95,8 @@ export const getBookings = async (req, res) => {
 export const getAllBookings = async (req, res) => {
   try {
     // Find all bookings and populate related fields
-    const allusersbookings = await Booking.find().populate('serviceId userId');
+    // console.log(req.params.userId);
+    const allusersbookings = await Booking.find({adminId:req.params.userId}).populate('serviceId userId');
 
     // Respond with all bookings
     return res.status(201).json({
@@ -125,7 +139,7 @@ export const updateBooking = async (req, res) => {
       from: process.env.MAIL_USERNAME,
       to: `${user.email}`,
       subject: `Bike service update from owner`,
-      text: `User:${user.username} order update; order ${(req.body.isCompleted) ? "completed successfully" : "cancelled"} ${new Date(Date.now())}`
+      text: `User:${user.username} order update; order ${(req.body.isCompleted)} ${new Date(Date.now())}`
     };
 
     // Send email notification

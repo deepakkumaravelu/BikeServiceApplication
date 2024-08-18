@@ -13,6 +13,9 @@ const BookingSchema = new Schema(
       ref: "User",
       required: true,
     },
+    adminId:{
+      type: String
+    },
     isCompleted: {
       type: Boolean,
       default: false,

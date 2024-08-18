@@ -3,17 +3,15 @@ import { useCookies } from "react-cookie";
 import "./AddService.css";
 
 const AddService = () => {
-  // State hooks to manage form inputs
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [deliveryTime, setDeliveryTime] = useState(0);
+  const [error, setError] = useState(null);
 
-  // Hook to access cookies
   const [cookies] = useCookies(["token"]);
 
-  // Handler functions to update state with input changes
   function handleTitleChange(e) {
     setTitle(e.target.value);
   }
@@ -34,12 +32,10 @@ const AddService = () => {
     setDeliveryTime(e.target.value);
   }
 
-  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // Sending form data to the API
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/service/add-service/${cookies.userId}`,
         {
@@ -57,10 +53,17 @@ const AddService = () => {
           }),
         }
       );
-      // Logging the response from the API
-      console.log(await response.json());
+
+      const result = await response.json();
+      if (!response.ok) {
+        setError(result.message || "Service creation failed");
+      } else {
+        setError(null);
+        // You can add further actions here, e.g., redirecting to another page
+      }
+      console.log(result);
     } catch (error) {
-      // Handling errors
+      setError("Service creation failed. Please try again.");
       console.log(error);
     }
   };
@@ -68,7 +71,11 @@ const AddService = () => {
   return (
     <div className="mt-1 mx-auto form-container">
       <form className="p-5 row g-3" onSubmit={handleSubmit}>
-        {/* Form fields for input */}
+        {error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
         <div className="col-md-12">
           <label htmlFor="inputTitle" className="form-label">
             Title

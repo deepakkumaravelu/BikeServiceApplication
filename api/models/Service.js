@@ -10,6 +10,7 @@ const ServiceSchema = new Schema(
     title: {
       type: String,
       required: true,
+      unique:true,
     },
     desc: {
       type: String,

@@ -56,7 +56,7 @@ router.post("/new-booking/:userId", authenticateToken, newBooking);
 router.get("/get-bookings/:userId", authenticateToken, getBookings);
 
 // Route to get all bookings
-router.get("/get-all-bookings", authenticateToken, getAllBookings);
+router.get("/get-all-bookings/:userId", authenticateToken, getAllBookings);
 
 // Route to update a specific booking
 router.patch("/update-booking/:id", authenticateToken, updateBooking);

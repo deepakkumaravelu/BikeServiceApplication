@@ -129,6 +129,7 @@ const Register = () => {
             id="inputPhone"
             value={phone}
             onChange={handlePhoneChange}
+            required
           />
         </div>
         <div className="col-md-12">
@@ -141,6 +142,7 @@ const Register = () => {
             id="inputLocation"
             value={location}
             onChange={handleLocationChange}
+            required
           />
         </div>
         <div className="col-12">
